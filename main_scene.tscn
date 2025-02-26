@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://bnmi015lecqib"]
+
+[ext_resource type="PackedScene" uid="uid://cjuhsj8f1mud1" path="res://tree.tscn" id="1_v3kpg"]
+[ext_resource type="PackedScene" uid="uid://b6a767oay5lxq" path="res://ball.tscn" id="2_gopw3"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_k6qgp"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_qigr8"]
+sky_material = SubResource("ProceduralSkyMaterial_k6qgp")
+
+[sub_resource type="Environment" id="Environment_s7iuc"]
+background_mode = 2
+sky = SubResource("Sky_qigr8")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_5nyk8"]
+lightmap_size_hint = Vector2i(1004, 526)
+size = Vector3(100, 2, 100)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_rl5ua"]
+data = PackedVector3Array(-50, 1, 50, 50, 1, 50, -50, -1, 50, 50, 1, 50, 50, -1, 50, -50, -1, 50, 50, 1, -50, -50, 1, -50, 50, -1, -50, -50, 1, -50, -50, -1, -50, 50, -1, -50, 50, 1, 50, 50, 1, -50, 50, -1, 50, 50, 1, -50, 50, -1, -50, 50, -1, 50, -50, 1, -50, -50, 1, 50, -50, -1, -50, -50, 1, 50, -50, -1, 50, -50, -1, -50, 50, 1, 50, -50, 1, 50, 50, 1, -50, -50, 1, 50, -50, 1, -50, 50, 1, -50, -50, -1, 50, 50, -1, 50, -50, -1, -50, 50, -1, 50, 50, -1, -50, -50, -1, -50)
+
+[node name="MainScene" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_s7iuc")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+mesh = SubResource("BoxMesh_5nyk8")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
+transform = Transform3D(1, 1.49012e-08, -7.45058e-09, 0, 1, 0, -7.45058e-09, 0, 1, -1.49012e-08, -1.19209e-07, 0)
+shape = SubResource("ConcavePolygonShape3D_rl5ua")
+
+[node name="Tree" parent="." instance=ExtResource("1_v3kpg")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 20, 25)
+
+[node name="Ball" parent="." instance=ExtResource("2_gopw3")]
+
+[node name="Ball2" parent="." instance=ExtResource("2_gopw3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 28, -9)
+
+[node name="Tree2" parent="." instance=ExtResource("1_v3kpg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 5, 6)
+
+[node name="Tree3" parent="." instance=ExtResource("1_v3kpg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 4, -6)
+
+[node name="Tree4" parent="." instance=ExtResource("1_v3kpg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 1, -5)
